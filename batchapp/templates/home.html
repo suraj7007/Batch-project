@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+<div class="container mt-2">
+    <h2 class="text-center alert alert-danger">Batch Project</h2>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <h4 class="text-center alert alert-info">Add Batch Info</h4>
+            <form action="" method="post" id="myform">
+                {% csrf_token %}
+                <input type="hidden" name="batchid" id="batchid" />
+                <div class="mb-3">
+                    <label for="nameid" class="form-label">Batch Name</label>
+                    <input type="text" pattern=".{3,}" class="form-control" autocomplete="username" id="nameid"
+                        name="bname" aria-describedby="nameHelp" required="required" />
+                </div>
+                <div class="mb-3">
+                    <label for="numbatches" class="form-label">Number of batches</label>
+                    <input type="number" pattern="[0-9]{1,}" name="num" class="form-control" autocomplete="email"
+                        id="numbatches" aria-describedby="emailHelp" required="required" />
+                    {% comment %} <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                    </div> {% endcomment %}
+                </div>
+                {% comment %} <div class="mb-3">
+                    <label for="passwordid" class="form-label">Password</label>
+                    <input type="password" pattern=".{5,}" name="password" autocomplete="current-password"
+                        class="form-control" id="passwordid" required="required" />
+                </div> {% endcomment %}
+                <div class="pt-3">
+                    <button type="button" id="btnsave" class="btn btn-success">Save</button>
+                </div>
+            </form>
+            <div id="msg" class="alert alert-danger my-2" style="display: none"></div>
+        </div>
+        <div class="col">
+            <h4 class="text-center alert alert-info">Batch List</h4>
+            <table class="table table-scrollable">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        {% comment %} <th scope="col" class="text-center">User</th> {% endcomment %}
+                        <th scope="col" class="text-center">Batch Name</th>
+                        <th scope="col" class="text-center">Number of Codes</th>
+                        <th scope="col" class="text-center">Controls</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    {% for stu in data %}
+                    <tr class="align-middle">
+                        <td scope="row">{{stu.batch_id}}</td>
+                        {% comment %} <td class="text-center">{{stu.user}}</td> {% endcomment %}
+                        <td class="text-center">{{stu.batch_name}}</td>
+                        <td class="text-center">{{stu.number_of_code}}</td>
+                        <td class="col-sm-3 text-center">
+                            <button type="button" data-sid="{{stu.id}}"
+                                class="btn btn-warning me-2 edit_btn">View</button>
+                            <button type="button" data-sid="{{stu.id}}" class="btn btn-danger del_btn">Delete</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock body %}

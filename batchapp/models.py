@@ -10,7 +10,7 @@ class Batch(models.Model):
     number_of_code = models.IntegerField()
 
     def __str__(self) -> str:
-        return f"{self.user}, {self.code}"
+        return f"{self.user}, {self.batch_name}"
 
 class Codes(models.Model):
     code_id = models.AutoField(primary_key=True)
@@ -23,6 +23,7 @@ class BatchSerializers(serializers.ModelSerializer):
         fields = "__all__"
 
 class CodesSerializers(serializers.ModelSerializer):
+    batch = BatchSerializers()
     class Meta:
         model = Codes
         fields = "__all__"

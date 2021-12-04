@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block loginactive %}active{% endblock loginactive %}
+
+{% block alertmsgs %}
+{% if messages %}
+{% for msg in messages %}
+<div class="alert alert-{% if msg.tags == "error" %}danger alert-danger alert-dismissible fade show {% else %} {{ msg.tags }} alert-{{ msg.tags }} alert-dismissible fade show {% endif %}"
+    role="alert">
+    <strong>Holy guacamole!</strong> {{ msg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock alertmsgs %}
+
+{% block body %}
+
+<div class="container-fluid ps-md-0">
+    <div class="row g-0">
+        <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image">
+            <img src="{% static 'images/photo-blue.jpg' %}" alt="photo.jpg" width="665" height="665" srcset="">
+        </div>
+        <div class="col-md-8 col-lg-6 pt-5">
+            <div class="d-flex align-items-center py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-9 col-lg-8 mx-auto">
+                            <h3 class="login-heading mb-4">Welcome back!</h3>
+
+                            <!-- Sign In Form -->
+                            <form action="{% url 'login' %}" method="post">
+                                {% csrf_token %}
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput" name="username"
+                                        placeholder="Abc@123">
+                                    <label for="floatingInput">Username</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="floatingPassword" name="password"
+                                        placeholder="Password">
+                                    <label for="floatingPassword">Password</label>
+                                </div>
+
+                                <div class="d-grid pt-3">
+                                    <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2"
+                                        type="submit">Sign in</button>
+                                    <div class="text-center pt-3">
+                                        <span>Don't have account <a class="small text-decoration-none" href="{% url 'signup' %}">Signup!</a></span>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
