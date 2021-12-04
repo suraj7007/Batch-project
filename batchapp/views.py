@@ -34,13 +34,17 @@ def create_batch(request):
                           number_of_code=num_batch)
             batch.save()
             messages.success(request, 'Batch created successfully')
+            man_list = []
             for xx in range(batch.number_of_code):
                 x = ''.join(random.choice(string.ascii_uppercase +
                         string.ascii_lowercase + string.digits) for _ in range(10))
                 if Codes.objects.filter(code__iexact=x).exists():
                     pass
                 else:
-                    Codes.objects.create(code=x, batch=batch)
+                    man_list += [Codes(code=x, batch=batch), ]
+                    # print(man_list)
+            Codes.objects.bulk_create(man_list)
+            
             return redirect("home")
     else:
         messages.error(request, 'Some thing went wrong')
@@ -52,6 +56,17 @@ def delete_batch(request, id):
         batch_obj = Batch.objects.get(batch_id=id)
         batch_obj.delete()
         return redirect("home")
+
+
+@api_view(["GET"])
+@login_required(login_url="login")
+def batch_detail(request, id):
+    if request.method == "GET":
+        batch_obj = Batch.objects.get(batch_id=id, user=request.user)
+        batch_ser = BatchSerializers(batch_obj, many=True)
+        print(f"batch_ser : {batch_ser.data}")
+        context = {"data":batch_ser.data}
+        return render(request, "details.html", context)
 
 
 def loginuser(request):

@@ -7,12 +7,14 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav me-auto">
-                <li><a class="nav-link fs-5 {% block home-act %}{% endblock home-act %}" aria-current="page" href="#">-
-                        Generate Codes in Batches</a></li>
+                {% comment %} <li><a class="nav-link fs-5 {% block home-act %}{% endblock home-act %}" aria-current="page" href="#">- 
+                        Generate Codes in Batches</a></li> {% endcomment %}
+                <li><a class="nav-link fs-5 ms-5" aria-current="page" href="{% url 'home' %}">
+                        Home</a></li>
             </ul>
             <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
-                <li><a class="nav-link fw-bolder {% block asd %}{% endblock asd %}" href="#">Logout</a></li>
+                <li><a class="nav-link fw-bolder {% block asd %}{% endblock asd %}" href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
                 <li><a class="nav-link {% block login %}{% endblock login %}" aria-current="page"
                         href="{% url 'login' %}">Login</a></li>

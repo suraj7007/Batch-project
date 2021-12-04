@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block alertmsgs %}
+{% if messages %}
+{% for msg in messages %}
+<div class="alert alert-{% if msg.tags == "error" %}danger alert-danger alert-dismissible fade show {% else %} {{ msg.tags }} alert-{{ msg.tags }} alert-dismissible fade show {% endif %}"
+    role="alert">
+    <strong>Holy guacamole!</strong> {{ msg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endblock alertmsgs %}
+
+{% block body %}
+<div class="container-fluid">
+    <h4 class="text-center alert alert-info">Batch Details</h4>
+    <div class="card">
+        {% if detail %}
+        <div class="card-body">
+            {% for code in data %}{{code.batch_name}}{% endfor %}
+        </div>
+        {% else %}
+        <div class="card-body text-center">
+            <span class="">Sorry No Data to Show
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock body %}

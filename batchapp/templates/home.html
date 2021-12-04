@@ -55,7 +55,7 @@
                         <td class="text-center">{{bat.batch_name}}</td>
                         <td class="text-center">{{bat.number_of_code}}</td>
                         <td class="col-sm-3 text-center">
-                            <a class="btn btn-warning me-2 edit_btn" data-sid="{{bat.batch_id}}" href="#">
+                            <a class="btn btn-warning me-2 edit_btn" data-sid="{{bat.batch_id}}" href="{% url 'batch_detail' bat.batch_id %}">
                                 View
                             </a>
                             <a class="btn btn-danger del_btn" data-sid="{{bat.batch_id}}"
