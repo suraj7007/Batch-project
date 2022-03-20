@@ -62,10 +62,10 @@ def delete_batch(request, id):
 @login_required(login_url="login")
 def batch_detail(request, id):
     if request.method == "GET":
-        batch_obj = Batch.objects.get(batch_id=id, user=request.user)
-        batch_ser = BatchSerializers(batch_obj, many=True)
-        print(f"batch_ser : {batch_ser.data}")
-        context = {"data":batch_ser.data}
+        code_obj = Codes.objects.filter(batch__batch_id=id, batch__user=request.user)
+        code_ser = CodesSerializers(code_obj, many=True)
+        # print(f"batch_ser : {code_ser.data}")
+        context = {"data":code_ser.data}
         return render(request, "details.html", context)
 
 

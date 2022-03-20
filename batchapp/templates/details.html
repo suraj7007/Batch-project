@@ -15,18 +15,20 @@
 
 {% block body %}
 <div class="container-fluid">
-    <h4 class="text-center alert alert-info">Batch Details</h4>
-    <div class="card">
-        {% if detail %}
-        <div class="card-body">
-            {% for code in data %}{{code.batch_name}}{% endfor %}
+    {% if data %}
+    <h4 class="text-center alert alert-info">Batch Details - {% for mem in data %}{{mem.batch.batch_name}}{% endfor %}</h4>
+    <div class="card mb-3">
+        <div class="card-body scrollable">
+            {% for code in data %}
+            {{code.code}}<br>
+            {% endfor %}
         </div>
         {% else %}
         <div class="card-body text-center">
             <span class="">Sorry No Data to Show
         </div>
-        {% endif %}
     </div>
+    {% endif %}
 </div>
 
 
